@@ -1,4 +1,4 @@
-<div class="keyboard-container" (keydown)="onKeyDown($event)">
+<div class="keyboard-container">
   <button (click)="changeKeyboardType()">change keyboard</button>
   <div class="keyboard">
     <div class="keyboard-line">
@@ -16,7 +16,7 @@
       ></app-wordle-keyboard-letter>
     </div>
     <div class="keyboard-line">
-      <div class="letter special-letter">
+      <div class="letter special-letter" (click)="returnEventKeyboard()">
         <svg
           width="100%"
           height="100%"
@@ -39,7 +39,7 @@
         [letter]="letter"
         (userInput)="userClickKeyboard($event)"
       ></app-wordle-keyboard-letter>
-      <div class="letter special-letter">
+      <div class="letter special-letter" (click)="deleteEventKeyboard()">
         <svg
           width="100%"
           height="100%"

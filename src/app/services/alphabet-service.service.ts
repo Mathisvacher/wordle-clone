@@ -7,7 +7,7 @@ import { Letter } from '../models/letter.model';
   providedIn: 'root',
 })
 export class AlphabetService {
-  userKeyboardType = KEYBOARD_TYPE.AZERTY;
+  userKeyboardType = KEYBOARD_TYPE.QWERTY;
 
   // AZERTY keyboard
   keyboardFirstLineAzerty: Letter[] = [
@@ -57,7 +57,7 @@ export class AlphabetService {
     { value: 'p', status: LETTER_STATUS.NONE },
   ];
   keyboardSecondLineQwerty: Letter[] = [
-    { value: 'a', status: LETTER_STATUS.NONE },
+    { value: 'a', status: LETTER_STATUS.ALMOST },
     { value: 's', status: LETTER_STATUS.NONE },
     { value: 'd', status: LETTER_STATUS.NONE },
     { value: 'f', status: LETTER_STATUS.NONE },
@@ -68,16 +68,17 @@ export class AlphabetService {
     { value: 'l', status: LETTER_STATUS.NONE },
   ];
   keyboardThirdLineQwerty: Letter[] = [
-    { value: 'z', status: LETTER_STATUS.NONE },
+    { value: 'z', status: LETTER_STATUS.KO },
     { value: 'x', status: LETTER_STATUS.NONE },
     { value: 'c', status: LETTER_STATUS.NONE },
-    { value: 'v', status: LETTER_STATUS.NONE },
+    { value: 'v', status: LETTER_STATUS.OK },
     { value: 'b', status: LETTER_STATUS.NONE },
     { value: 'n', status: LETTER_STATUS.NONE },
     { value: 'm', status: LETTER_STATUS.NONE },
   ];
 
   changeKeyboardType() {
+    this.updateKeyboardStatus();
     if (this.userKeyboardType === KEYBOARD_TYPE.AZERTY) {
       this.userKeyboardType = KEYBOARD_TYPE.QWERTY;
     } else {
@@ -127,5 +128,85 @@ export class AlphabetService {
 
   getKeyboardThirdLineQwerty(): Letter[] {
     return this.keyboardThirdLineQwerty;
+  }
+
+  /////////////////////////
+  // Keyboard Management //
+  /////////////////////////
+
+  private updateKeyboardStatus() {
+    //Change to qwerty
+    if (this.userKeyboardType === KEYBOARD_TYPE.AZERTY) {
+      this.keyboardFirstLineQwerty = this.updateLineKeyboard(
+        this.keyboardFirstLineQwerty
+      );
+      this.keyboardSecondLineQwerty = this.updateLineKeyboard(
+        this.keyboardSecondLineQwerty
+      );
+      this.keyboardThirdLineQwerty = this.updateLineKeyboard(
+        this.keyboardThirdLineQwerty
+      );
+    }
+    //Change to azerty
+    if (this.userKeyboardType === KEYBOARD_TYPE.QWERTY) {
+      this.keyboardFirstLineAzerty = this.updateLineKeyboard(
+        this.keyboardFirstLineAzerty
+      );
+      this.keyboardSecondLineAzerty = this.updateLineKeyboard(
+        this.keyboardSecondLineAzerty
+      );
+      this.keyboardThirdLineAzerty = this.updateLineKeyboard(
+        this.keyboardThirdLineAzerty
+      );
+    }
+  }
+  private updateLineKeyboard(letters: Letter[]): Letter[] {
+    //Change to qwerty
+    if (this.userKeyboardType === KEYBOARD_TYPE.AZERTY) {
+      for (let i in letters) {
+        letters[i] = this.updateLetterKeyboardAzertyToQwerty(letters[i]);
+      }
+    }
+    if (this.userKeyboardType === KEYBOARD_TYPE.QWERTY) {
+      for (let i in letters) {
+        letters[i] = this.updateLetterKeyboardQwertyToAzerty(letters[i]);
+      }
+    }
+
+    return letters;
+  }
+
+  private updateLetterKeyboardAzertyToQwerty(letter: Letter): Letter {
+    let l = this.getKeyboardFirstLineAzerty().find(
+      (f) => f.value === letter.value
+    );
+    if (!l) {
+      l = this.getKeyboardSecondLineAzerty().find(
+        (f) => f.value === letter.value
+      );
+    }
+    if (!l) {
+      l = this.getKeyboardThirdLineAzerty().find(
+        (f) => f.value === letter.value
+      );
+    }
+    return l!;
+  }
+
+  private updateLetterKeyboardQwertyToAzerty(letter: Letter): Letter {
+    let l = this.getKeyboardFirstLineQwerty().find(
+      (f) => f.value === letter.value
+    );
+    if (!l) {
+      l = this.getKeyboardSecondLineQwerty().find(
+        (f) => f.value === letter.value
+      );
+    }
+    if (!l) {
+      l = this.getKeyboardThirdLineQwerty().find(
+        (f) => f.value === letter.value
+      );
+    }
+    return l!;
   }
 }

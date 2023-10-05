@@ -22,6 +22,10 @@ export class WordleKeyboardComponent {
 
   @Output() userInput = new EventEmitter<Letter>();
 
+  @Output() returnEvent = new EventEmitter<void>();
+
+  @Output() deleteEvent = new EventEmitter<void>();
+
   constructor(private alphabetService: AlphabetService) {}
 
   ngOnInit() {
@@ -43,8 +47,11 @@ export class WordleKeyboardComponent {
     this.userInput.emit(value);
   }
 
-  onKeyDown(event: KeyboardEvent) {
-    // Vous pouvez accéder à des informations sur l'événement ici
-    console.log('Touche pressée :', event.key);
+  returnEventKeyboard() {
+    this.returnEvent.emit();
+  }
+
+  deleteEventKeyboard() {
+    this.deleteEvent.emit();
   }
 }

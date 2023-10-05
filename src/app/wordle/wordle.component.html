@@ -1,7 +1,9 @@
 <div class="wordle">
   <app-wordle-header></app-wordle-header>
-  <app-wordle-grid [word]="word"></app-wordle-grid>
+  <app-wordle-grid [game]="game"></app-wordle-grid>
   <app-wordle-keyboard
     (userInput)="userClickVirtualKeyboard($event)"
+    (returnEvent)="userClickVirtualKeyboardReturn()"
+    (deleteEvent)="userClickVirtualKeyboardDelete()"
   ></app-wordle-keyboard>
 </div>
