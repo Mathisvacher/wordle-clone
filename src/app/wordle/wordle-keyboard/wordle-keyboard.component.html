@@ -1,0 +1,37 @@
+<div class="keyboard-container" (keydown)="onKeyDown($event)">
+  <button (click)="changeKeyboardType()">change keyboard</button>
+  <div class="keyboard">
+    <div class="keyboard-line">
+      <app-wordle-keyboard-letter
+        *ngFor="let letter of keyboardFirstLine"
+        [letter]="letter"
+        (userInput)="userClickKeyboard($event)"
+      ></app-wordle-keyboard-letter>
+    </div>
+    <div class="keyboard-line">
+      <app-wordle-keyboard-letter
+        *ngFor="let letter of keyboardSecondLine"
+        [letter]="letter"
+        (userInput)="userClickKeyboard($event)"
+      ></app-wordle-keyboard-letter>
+    </div>
+    <div class="keyboard-line">
+      <img
+        class="letter special-letter"
+        src="../../assets/icon/icon-return.svg"
+        alt=""
+      />
+
+      <app-wordle-keyboard-letter
+        *ngFor="let letter of keyboardThirdLine"
+        [letter]="letter"
+        (userInput)="userClickKeyboard($event)"
+      ></app-wordle-keyboard-letter>
+      <img
+        class="letter special-letter"
+        src="../../assets/icon/icon-delete.svg"
+        alt=""
+      />
+    </div>
+  </div>
+</div>

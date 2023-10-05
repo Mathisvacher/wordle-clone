@@ -1,0 +1,43 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+  background-color: #1d1d20;
+  color: #e7e7e7;
+}
+
+.header-title {
+  margin-left: 15%;
+  margin-right: 15%;
+  white-space: nowrap;
+}
+
+.header-button {
+  width: 24px;
+  height: 24px;
+  background-color: var(--black-light);
+  display: flex;
+  justify-content: center;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 1 1;
+  cursor: pointer;
+}
+
+.header-button:hover {
+  background-color: rgba(63, 63, 70, 1);
+}
+
+.header-help-icon {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  font: bold;
+  font-size: 20px;
+}
+
+.header-button img {
+  transform: scale(0.7);
+}

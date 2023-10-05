@@ -1,0 +1,15 @@
+.keyboard-line {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 1rem;
+}
+
+.special-letter {
+  height: 2.2rem;
+  width: 30px;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+}

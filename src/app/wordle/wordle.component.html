@@ -1,0 +1,7 @@
+<div class="wordle">
+  <app-wordle-header></app-wordle-header>
+  <app-wordle-grid [word]="word"></app-wordle-grid>
+  <app-wordle-keyboard
+    (userInput)="userClickVirtualKeyboard($event)"
+  ></app-wordle-keyboard>
+</div>

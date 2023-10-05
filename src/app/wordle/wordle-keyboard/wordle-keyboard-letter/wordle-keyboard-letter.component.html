@@ -1,0 +1,5 @@
+<div class="letter-container">
+  <div class="letter" [ngClass]="letter.status" (click)="clickKeyboard()">
+    {{ letter.value | uppercase }}
+  </div>
+</div>
