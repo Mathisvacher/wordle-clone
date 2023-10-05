@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Game } from 'src/app/models/game.model';
 import { Letter } from 'src/app/models/letter.model';
 
 @Component({
@@ -9,5 +8,5 @@ import { Letter } from 'src/app/models/letter.model';
 })
 export class WordleGridComponent {
   @Input()
-  game!: Game;
+  word!: Letter[];
 }

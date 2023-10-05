@@ -1,6 +1,11 @@
-<div class="wordle">
+<div
+  class="wordle"
+  (keydown)="keyboardEvent($event)"
+  tabindex="0"
+  #wordleKeyboardEvent
+>
   <app-wordle-header></app-wordle-header>
-  <app-wordle-grid [game]="game"></app-wordle-grid>
+  <app-wordle-grid [word]="word"></app-wordle-grid>
   <app-wordle-keyboard
     (userInput)="userClickVirtualKeyboard($event)"
     (returnEvent)="userClickVirtualKeyboardReturn()"

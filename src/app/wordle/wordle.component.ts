@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Letter } from '../models/letter.model';
 import { Game } from '../models/game.model';
+import { LETTER_STATUS } from '../enums/letterState.enum';
 
 @Component({
   selector: 'app-wordle',
@@ -12,6 +13,12 @@ export class WordleComponent {
   word: Letter[] = [];
 
   game!: Game;
+
+  @ViewChild('wordleKeyboardEvent') wordleKeyboardEvent!: ElementRef;
+
+  ngAfterViewInit() {
+    this.wordleKeyboardEvent.nativeElement.focus();
+  }
 
   ngOnInit() {
     this.wordToFind = 'poire';
@@ -35,7 +42,8 @@ export class WordleComponent {
     if (this.letterArrayToString(this.word) === this.wordToFind) {
       console.log('victory :D');
     } else {
-      console.log('he non :/');
+      this.game.words.push(this.word);
+      this.word = [];
     }
   }
 
@@ -54,5 +62,17 @@ export class WordleComponent {
 
   userClickVirtualKeyboardDelete(): void {
     this.word.pop();
+  }
+
+  keyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'Enter' && this.word.length === 5) {
+      this.checkWord();
+    }
+    if (event.key === 'Backspace') {
+      this.word.pop();
+    }
+    if (event.keyCode >= 65 && event.keyCode <= 90 && this.word.length < 5) {
+      this.word.push({ value: event.key, status: LETTER_STATUS.NONE });
+    }
   }
 }

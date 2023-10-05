@@ -1,6 +1,8 @@
+import { Letter } from './letter.model';
+
 export interface Game {
   date: Date;
-  words: string[];
+  words: Letter[][];
   wordToFine: string;
   success: boolean;
 }
