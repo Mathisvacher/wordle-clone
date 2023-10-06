@@ -1,4 +1,4 @@
 export enum KEYBOARD_TYPE {
-  AZERTY,
-  QWERTY,
+  AZERTY = 'azerty',
+  QWERTY = 'qwerty',
 }
