@@ -36,7 +36,6 @@ export class WordleKeyboardComponent {
     this.keyboardFirstLine = this.alphabetService.getKeyboardFirstLine();
     this.keyboardSecondLine = this.alphabetService.getKeyboardSecondLine();
     this.keyboardThirdLine = this.alphabetService.getKeyboardThirdLine();
-    console.log(this.keyboardFirstLine);
   }
 
   changeKeyboardType() {

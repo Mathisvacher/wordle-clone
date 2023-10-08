@@ -1,5 +1,16 @@
 <div class="grid-container">
-  <div class="letter" [ngClass]="w.status" *ngFor="let w of word">
-    {{ w.value | uppercase }}
+  <div class="grid-line" *ngFor="let word of game.words">
+    <div
+      class="letter-grid"
+      *ngFor="let char of word"
+      [ngClass]="{
+        'no-letter': char.value == '',
+        'none-letter': char.status == letterStatusEnum.ANY
+      }"
+    >
+      <div>
+        {{ char.value }}
+      </div>
+    </div>
   </div>
 </div>

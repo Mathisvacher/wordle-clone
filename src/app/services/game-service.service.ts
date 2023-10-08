@@ -1,0 +1,143 @@
+import { Injectable } from '@angular/core';
+import { Letter } from '../models/letter.model';
+import { LETTER_STATUS } from '../enums/letterState.enum';
+import { Game } from '../models/game.model';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class GameService {
+  private emptyLetter: Letter = { value: '', status: LETTER_STATUS.NONE };
+
+  private wordIndex: number = 0;
+  private charIndex: number = 0;
+  private nbWordMax: number = 6;
+  private nbCharMax: number = 5;
+
+  private word1: Letter[] = [
+    this.emptyLetter,
+    this.emptyLetter,
+    this.emptyLetter,
+    this.emptyLetter,
+    this.emptyLetter,
+  ];
+
+  private word2: Letter[] = [
+    this.emptyLetter,
+    this.emptyLetter,
+    this.emptyLetter,
+    this.emptyLetter,
+    this.emptyLetter,
+  ];
+
+  private word3: Letter[] = [
+    this.emptyLetter,
+    this.emptyLetter,
+    this.emptyLetter,
+    this.emptyLetter,
+    this.emptyLetter,
+  ];
+
+  private word4: Letter[] = [
+    this.emptyLetter,
+    this.emptyLetter,
+    this.emptyLetter,
+    this.emptyLetter,
+    this.emptyLetter,
+  ];
+
+  private word5: Letter[] = [
+    this.emptyLetter,
+    this.emptyLetter,
+    this.emptyLetter,
+    this.emptyLetter,
+    this.emptyLetter,
+  ];
+  private word6: Letter[] = [
+    this.emptyLetter,
+    this.emptyLetter,
+    this.emptyLetter,
+    this.emptyLetter,
+    this.emptyLetter,
+  ];
+
+  private arrayGame: Letter[][] = [
+    this.getWord1(),
+    this.getWord2(),
+    this.getWord3(),
+    this.getWord4(),
+    this.getWord5(),
+    this.getWord6(),
+  ];
+
+  //////////////////////
+  // GETTER & SETTER //
+  /////////////////////
+
+  private getWord1(): Letter[] {
+    return this.word1;
+  }
+  private getWord2(): Letter[] {
+    return this.word2;
+  }
+  private getWord3(): Letter[] {
+    return this.word3;
+  }
+  private getWord4(): Letter[] {
+    return this.word4;
+  }
+  private getWord5(): Letter[] {
+    return this.word5;
+  }
+  private getWord6(): Letter[] {
+    return this.word6;
+  }
+
+  getEmptyGameArray(): Letter[][] {
+    return this.arrayGame;
+  }
+  ///
+
+  /**
+   * When : user want to add a letter
+   * Then : add a letter to the game
+   * @param game : The current game
+   * @param letter : The letter to add
+   */
+  updateGameAddLetter(game: Game, letter: Letter): void {
+    if (
+      this.charIndex < this.nbCharMax - 1 ||
+      this.wordIndex < this.nbWordMax
+    ) {
+      let word: Letter[] = game.words[this.wordIndex];
+      word[this.charIndex] = letter;
+      game.words[this.wordIndex] = word;
+      this.charIndex++;
+    }
+  }
+
+  /**
+   * When : checkWord called
+   * Then : update index
+   */
+  goToNextWord(): void {
+    if (this.wordIndex < this.nbWordMax) {
+      this.charIndex = 0;
+      this.wordIndex++;
+    }
+  }
+
+  /**
+   * When : "backspace" used
+   * Then : remove the last letter added
+   * @param game : The current game
+   */
+  updateGameRemoveLetter(game: Game): void {
+    if (this.charIndex !== 0) {
+      this.charIndex--;
+      let word: Letter[] = game.words[this.wordIndex];
+      word[this.charIndex] = this.emptyLetter;
+      game.words[this.wordIndex] = word;
+    }
+  }
+}

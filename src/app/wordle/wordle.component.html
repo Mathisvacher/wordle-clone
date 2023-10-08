@@ -5,7 +5,7 @@
   #wordleKeyboardEvent
 >
   <app-wordle-header></app-wordle-header>
-  <app-wordle-grid [word]="word"></app-wordle-grid>
+  <app-wordle-grid [word]="word" [game]="game"></app-wordle-grid>
   <app-wordle-keyboard
     (userInput)="userClickVirtualKeyboard($event)"
     (returnEvent)="userClickVirtualKeyboardReturn()"

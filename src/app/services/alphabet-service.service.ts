@@ -13,18 +13,18 @@ export class AlphabetService {
     { value: 'a', status: LETTER_STATUS.NONE },
     { value: 'b', status: LETTER_STATUS.NONE },
     { value: 'c', status: LETTER_STATUS.NONE },
-    { value: 'd', status: LETTER_STATUS.OK },
+    { value: 'd', status: LETTER_STATUS.NONE },
     { value: 'e', status: LETTER_STATUS.NONE },
     { value: 'f', status: LETTER_STATUS.NONE },
     { value: 'g', status: LETTER_STATUS.NONE },
     { value: 'h', status: LETTER_STATUS.NONE },
     { value: 'i', status: LETTER_STATUS.NONE },
-    { value: 'j', status: LETTER_STATUS.ALMOST },
+    { value: 'j', status: LETTER_STATUS.NONE },
     { value: 'k', status: LETTER_STATUS.NONE },
     { value: 'l', status: LETTER_STATUS.NONE },
     { value: 'm', status: LETTER_STATUS.NONE },
     { value: 'n', status: LETTER_STATUS.NONE },
-    { value: 'o', status: LETTER_STATUS.KO },
+    { value: 'o', status: LETTER_STATUS.NONE },
     { value: 'p', status: LETTER_STATUS.NONE },
     { value: 'q', status: LETTER_STATUS.NONE },
     { value: 'r', status: LETTER_STATUS.NONE },
@@ -34,6 +34,7 @@ export class AlphabetService {
     { value: 'v', status: LETTER_STATUS.NONE },
     { value: 'w', status: LETTER_STATUS.NONE },
     { value: 'x', status: LETTER_STATUS.NONE },
+    { value: 'y', status: LETTER_STATUS.NONE },
     { value: 'z', status: LETTER_STATUS.NONE },
   ];
 
@@ -155,12 +156,22 @@ export class AlphabetService {
   // Keyboard Management //
   /////////////////////////
 
+  /**
+   * When : user want to change keyboard type
+   * Then : update keyboard status
+   */
   changeKeyboardType() {
     if (this.userKeyboardType === KEYBOARD_TYPE.AZERTY)
       this.userKeyboardType = KEYBOARD_TYPE.QWERTY;
     else this.userKeyboardType = KEYBOARD_TYPE.AZERTY;
   }
 
+  /**
+   * When :
+   * Then :
+   * @param charArray : The string array to translate
+   * @returns the string array translate in letter array
+   */
   private charactereToLetter(charArray: string[]): Letter[] {
     let letterArray: Letter[] = [];
     for (let c in charArray) {

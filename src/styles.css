@@ -24,6 +24,8 @@ body {
   --letter-ko: #272727;
   --letter-ko-shadow: #1e1e1e;
   --letter-ko-text: #828282;
+  --grid-none: #646464;
+  --grid-no-letter: #2f2f2f;
 }
 
 p,
@@ -36,8 +38,8 @@ span {
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  padding-right: 1.2rem;
-  padding-left: 1.2rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
   padding-top: 0.6rem;
   padding-bottom: 0.6rem;
   margin: 2px;
@@ -45,7 +47,7 @@ span {
   background-color: var(--letter-bg);
   color: var(--text-color);
   box-shadow: 0px 2px 0px 0px var(--letter-shadow);
-  font-size: 24px;
+  font-size: 20px;
   font: bold;
   cursor: pointer;
   transition: background-color 0.2s ease;
