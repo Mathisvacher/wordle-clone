@@ -4,13 +4,11 @@
       class="letter-grid"
       *ngFor="let char of word"
       [ngClass]="{
-        'no-letter': char.value == '',
-        'none-letter': char.status == letterStatusEnum.ANY
+        'letter-next': char.status == letterStatusEnum.NEXT,
+        'letter-any': char.status == letterStatusEnum.ANY
       }"
     >
-      <div>
-        {{ char.value }}
-      </div>
+      {{ char.value | uppercase }}
     </div>
   </div>
 </div>

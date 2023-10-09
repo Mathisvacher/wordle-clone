@@ -37,19 +37,20 @@ export class WordleComponent {
     };
   }
 
-  userClickVirtualKeyboard(value: Letter): void {
+  userClickVirtualKeyboard(l: Letter): void {
     if (this.word.length < 5) {
-      this.word.push(value);
-      this.gameService.updateGameAddLetter(this.game, value);
+      this.addLetter(l.value);
     }
   }
 
   private checkWord() {
     if (this.word.length === 5) {
       if (this.letterArrayToString(this.word) === this.wordToFind) {
-        console.log('victory :D');
+        alert('sheeeesh !');
+        this.ngOnInit();
       } else {
-        this.gameService.goToNextWord();
+        this.gameService.checkWord(this.game, this.wordToFind);
+        this.gameService.goToNextWord(this.game);
         this.word = [];
       }
     }
@@ -69,8 +70,7 @@ export class WordleComponent {
   }
 
   userClickVirtualKeyboardDelete(): void {
-    this.word.pop();
-    this.gameService.updateGameRemoveLetter(this.game);
+    this.removeLetter();
   }
 
   keyboardEvent(event: KeyboardEvent) {
@@ -78,13 +78,21 @@ export class WordleComponent {
       this.checkWord();
     }
     if (event.key === 'Backspace') {
-      this.word.pop();
-      this.gameService.updateGameRemoveLetter(this.game);
+      this.removeLetter();
     }
     if (event.keyCode >= 65 && event.keyCode <= 90 && this.word.length < 5) {
-      let l: Letter = { value: event.key, status: LETTER_STATUS.NONE };
-      this.gameService.updateGameAddLetter(this.game, l);
-      this.word.push(l);
+      this.addLetter(event.key);
     }
+  }
+
+  private addLetter(value: string): void {
+    let l: Letter = { value: value, status: LETTER_STATUS.ANY };
+    this.gameService.updateGameAddLetter(this.game, l);
+    this.word.push(l);
+  }
+
+  private removeLetter(): void {
+    this.word.pop();
+    this.gameService.updateGameRemoveLetter(this.game);
   }
 }

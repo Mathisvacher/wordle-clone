@@ -8,6 +8,7 @@ import { Game } from '../models/game.model';
 })
 export class GameService {
   private emptyLetter: Letter = { value: '', status: LETTER_STATUS.NONE };
+  private nextLetter: Letter = { value: '', status: LETTER_STATUS.NEXT };
 
   private wordIndex: number = 0;
   private charIndex: number = 0;
@@ -15,7 +16,7 @@ export class GameService {
   private nbCharMax: number = 5;
 
   private word1: Letter[] = [
-    this.emptyLetter,
+    this.nextLetter,
     this.emptyLetter,
     this.emptyLetter,
     this.emptyLetter,
@@ -96,7 +97,6 @@ export class GameService {
   getEmptyGameArray(): Letter[][] {
     return this.arrayGame;
   }
-  ///
 
   /**
    * When : user want to add a letter
@@ -113,6 +113,7 @@ export class GameService {
       word[this.charIndex] = letter;
       game.words[this.wordIndex] = word;
       this.charIndex++;
+      this.addNextLetterVisual(game);
     }
   }
 
@@ -120,10 +121,11 @@ export class GameService {
    * When : checkWord called
    * Then : update index
    */
-  goToNextWord(): void {
+  goToNextWord(game: Game): void {
     if (this.wordIndex < this.nbWordMax) {
       this.charIndex = 0;
       this.wordIndex++;
+      this.addNextLetterVisual(game);
     }
   }
 
@@ -138,6 +140,41 @@ export class GameService {
       let word: Letter[] = game.words[this.wordIndex];
       word[this.charIndex] = this.emptyLetter;
       game.words[this.wordIndex] = word;
+      this.removeNextLetterVisual(game);
     }
   }
+
+  /**
+   * When : User select a letter
+   * Then : Update then the blue tool position
+   * @param game
+   */
+  private addNextLetterVisual(game: Game): void {
+    if (this.charIndex < this.nbCharMax) {
+      let word: Letter[] = game.words[this.wordIndex];
+      word[this.charIndex] = this.nextLetter;
+      game.words[this.wordIndex] = word;
+    }
+  }
+
+  /**
+   * When : User remove a letter
+   * Then : Update then the blue tool position
+   * @param game
+   */
+  private removeNextLetterVisual(game: Game): void {
+    let word: Letter[] = game.words[this.wordIndex];
+    word[this.charIndex] = this.nextLetter;
+    game.words[this.wordIndex] = word;
+    if (this.charIndex !== this.nbCharMax - 1) {
+      word[this.charIndex + 1] = this.emptyLetter;
+    }
+  }
+
+  /**
+   * When : Uuser enter a word
+   * Then : Check letters and update it's status
+   * @param game
+   */
+  checkWord(game: Game, wordToFind: string): void {}
 }
