@@ -182,16 +182,11 @@ export class GameService {
       let l: Letter = game.words[this.wordIndex][lIndex];
       if (!wordToFind.includes(l.value)) {
         l.status = LETTER_STATUS.KO;
-      } else {
-        // nb de l dans le mot moins nb de l "ok"
-        // array.filter
-        // si taille >= nb vert go ?
-        l.status = LETTER_STATUS.ALMOST;
-      }
-      if (wordToFind.charAt(parseInt(lIndex)) === l.value) {
+      } else if (wordToFind.charAt(parseInt(lIndex)) === l.value) {
         l.status = LETTER_STATUS.OK;
       }
     }
+    this.checkOccurence(game, wordToFind);
   }
 
   private letterToStringFromCurrentWord(game: Game): String {
@@ -200,5 +195,38 @@ export class GameService {
       s += l.value;
     }
     return s;
+  }
+
+  private checkOccurence(game: Game, wordToFind: String): void {
+    let word: Letter[] = game.words[this.wordIndex];
+    for (let l of word) {
+      if (l.status == LETTER_STATUS.ANY) {
+        console.log(l);
+        const nbLetterOk = word.filter(
+          (element) =>
+            element.value == l.value && element.status == LETTER_STATUS.OK
+        );
+        const nbLetterAlmost = word.filter(
+          (element) =>
+            element.value == l.value && element.status == LETTER_STATUS.ALMOST
+        );
+        const nbOcc = this.countOccurrences(wordToFind, l.value);
+        if (nbLetterAlmost.length + nbLetterOk.length - nbOcc < 0) {
+          l.status = LETTER_STATUS.ALMOST;
+        } else {
+          l.status = LETTER_STATUS.KO;
+        }
+      }
+    }
+  }
+
+  private countOccurrences(string: String, character: String) {
+    let count = 0;
+    for (let i = 0; i < string.length; i++) {
+      if (string[i] === character) {
+        count++;
+      }
+    }
+    return count;
   }
 }

@@ -3,6 +3,7 @@ import { Letter } from '../models/letter.model';
 import { Game } from '../models/game.model';
 import { LETTER_STATUS } from '../enums/letterState.enum';
 import { GameService } from '../services/game-service.service';
+import { AlphabetService } from '../services/alphabet-service.service';
 
 @Component({
   selector: 'app-wordle',
@@ -15,7 +16,10 @@ export class WordleComponent {
 
   game!: Game;
 
-  constructor(private gameService: GameService) {}
+  constructor(
+    private gameService: GameService,
+    private alphabetService: AlphabetService
+  ) {}
 
   @ViewChild('wordleKeyboardEvent') wordleKeyboardEvent!: ElementRef;
 
@@ -49,6 +53,7 @@ export class WordleComponent {
         this.gameService.checkWord(this.game, this.wordToFind);
       } else {
         this.gameService.checkWord(this.game, this.wordToFind);
+        this.alphabetService.updateVirtualKeybord(this.word);
         this.gameService.goToNextWord(this.game);
         this.word = [];
       }

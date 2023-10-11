@@ -182,4 +182,14 @@ export class AlphabetService {
     }
     return letterArray;
   }
+
+  updateVirtualKeybord(word: Letter[]) {
+    for (let l of word) {
+      this.alphabet.map((e) => {
+        if (e.value === l.value) {
+          e.status = l.status;
+        }
+      });
+    }
+  }
 }
