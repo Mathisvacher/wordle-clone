@@ -5,7 +5,11 @@
       *ngFor="let char of word"
       [ngClass]="{
         'letter-next': char.status == letterStatusEnum.NEXT,
-        'letter-any': char.status == letterStatusEnum.ANY
+        'letter-any': char.status == letterStatusEnum.ANY,
+        'letter-ko-grid': char.status == letterStatusEnum.KO,
+        'letter-none': char.status == letterStatusEnum.NONE,
+        'letter-ok-grid' : char.status == letterStatusEnum.OK,
+        'letter-almost-grid' : char.status == letterStatusEnum.ALMOST,
       }"
     >
       {{ char.value | uppercase }}

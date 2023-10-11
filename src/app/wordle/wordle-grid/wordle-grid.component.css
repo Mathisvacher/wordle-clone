@@ -19,7 +19,6 @@
   margin: 0.2rem;
   color: var(--text-color);
   font-size: 28px;
-  border: 3px solid var(--grid-no-letter);
 }
 
 .letter-next {
@@ -28,4 +27,23 @@
 
 .letter-any {
   border: 3px solid var(--grid-none);
+}
+
+.letter-none {
+  border: 3px solid var(--grid-no-letter);
+}
+
+.letter-ko-grid {
+  background-color: var(--letter-ko-bg);
+  border: 3px solid var(--letter-ko-bg);
+}
+
+.letter-ok-grid {
+  background-color: var(--letter-ok);
+  border: 3px solid var(--letter-ok);
+}
+
+.letter-almost-grid {
+  background-color: var(--letter-almost);
+  border: 3px solid var(--letter-almost);
 }

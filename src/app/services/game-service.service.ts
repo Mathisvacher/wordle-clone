@@ -176,5 +176,29 @@ export class GameService {
    * Then : Check letters and update it's status
    * @param game
    */
-  checkWord(game: Game, wordToFind: string): void {}
+  checkWord(game: Game, wordToFind: string): void {
+    let s: String = this.letterToStringFromCurrentWord(game);
+    for (let lIndex in game.words[this.wordIndex]) {
+      let l: Letter = game.words[this.wordIndex][lIndex];
+      if (!wordToFind.includes(l.value)) {
+        l.status = LETTER_STATUS.KO;
+      } else {
+        // nb de l dans le mot moins nb de l "ok"
+        // array.filter
+        // si taille >= nb vert go ?
+        l.status = LETTER_STATUS.ALMOST;
+      }
+      if (wordToFind.charAt(parseInt(lIndex)) === l.value) {
+        l.status = LETTER_STATUS.OK;
+      }
+    }
+  }
+
+  private letterToStringFromCurrentWord(game: Game): String {
+    let s: String = '';
+    for (let l of game.words[this.wordIndex]) {
+      s += l.value;
+    }
+    return s;
+  }
 }

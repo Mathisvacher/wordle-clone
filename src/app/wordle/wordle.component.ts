@@ -46,8 +46,7 @@ export class WordleComponent {
   private checkWord() {
     if (this.word.length === 5) {
       if (this.letterArrayToString(this.word) === this.wordToFind) {
-        alert('sheeeesh !');
-        this.ngOnInit();
+        this.gameService.checkWord(this.game, this.wordToFind);
       } else {
         this.gameService.checkWord(this.game, this.wordToFind);
         this.gameService.goToNextWord(this.game);
