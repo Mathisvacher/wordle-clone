@@ -11,4 +11,5 @@
     (returnEvent)="userClickVirtualKeyboardReturn()"
     (deleteEvent)="userClickVirtualKeyboardDelete()"
   ></app-wordle-keyboard>
+  <app-popup [gameOver]="gameOver" *ngIf="gameOver"></app-popup>
 </div>

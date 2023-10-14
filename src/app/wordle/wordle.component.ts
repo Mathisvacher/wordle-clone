@@ -4,6 +4,7 @@ import { Game } from '../models/game.model';
 import { LETTER_STATUS } from '../enums/letterState.enum';
 import { GameService } from '../services/game-service.service';
 import { AlphabetService } from '../services/alphabet-service.service';
+import { WordService } from '../services/word.service';
 
 @Component({
   selector: 'app-wordle',
@@ -13,12 +14,14 @@ import { AlphabetService } from '../services/alphabet-service.service';
 export class WordleComponent {
   wordToFind!: string;
   word: Letter[] = [];
+  gameOver: Boolean = false;
 
   game!: Game;
 
   constructor(
     private gameService: GameService,
-    private alphabetService: AlphabetService
+    private alphabetService: AlphabetService,
+    private wordService: WordService
   ) {}
 
   @ViewChild('wordleKeyboardEvent') wordleKeyboardEvent!: ElementRef;
@@ -28,15 +31,16 @@ export class WordleComponent {
   }
 
   ngOnInit() {
-    this.wordToFind = 'poire';
     this.initGame();
   }
 
   private initGame(): void {
+    const data = this.wordService.getOneWord();
+    this.wordToFind = data;
     this.game = {
       date: new Date(),
       words: this.gameService.getEmptyGameArray(),
-      wordToFine: this.wordToFind,
+      wordToFine: data,
       success: false,
     };
   }
@@ -51,6 +55,7 @@ export class WordleComponent {
     if (this.word.length === 5) {
       if (this.letterArrayToString(this.word) === this.wordToFind) {
         this.gameService.checkWord(this.game, this.wordToFind);
+        this.gameOver = true;
       } else {
         this.gameService.checkWord(this.game, this.wordToFind);
         this.alphabetService.updateVirtualKeybord(this.word);

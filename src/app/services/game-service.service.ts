@@ -201,7 +201,6 @@ export class GameService {
     let word: Letter[] = game.words[this.wordIndex];
     for (let l of word) {
       if (l.status == LETTER_STATUS.ANY) {
-        console.log(l);
         const nbLetterOk = word.filter(
           (element) =>
             element.value == l.value && element.status == LETTER_STATUS.OK
