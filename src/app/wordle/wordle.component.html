@@ -4,12 +4,25 @@
   tabindex="0"
   #wordleKeyboardEvent
 >
-  <app-wordle-header></app-wordle-header>
+  <app-wordle-header
+    (openArchiveEvent)="openArchive()"
+    (openHelpEvent)="openHelp()"
+    (openSettingsEvent)="openSettings()"
+    (openStatEvent)="openStat()"
+  ></app-wordle-header>
   <app-wordle-grid [word]="word" [game]="game"></app-wordle-grid>
   <app-wordle-keyboard
     (userInput)="userClickVirtualKeyboard($event)"
     (returnEvent)="userClickVirtualKeyboardReturn()"
     (deleteEvent)="userClickVirtualKeyboardDelete()"
   ></app-wordle-keyboard>
-  <app-popup [gameOver]="gameOver" *ngIf="gameOver"></app-popup>
+  <app-popup
+    [gameOver]="gameOver"
+    [archivePopup]="archivePopup"
+    [settingsPopup]="settingsPopup"
+    [helpPopup]="helpPopup"
+    [statPopup]="statPopup"
+    *ngIf="gameOver || archivePopup || settingsPopup || helpPopup || statPopup"
+    (closePopupEvent)="closePopup()"
+  ></app-popup>
 </div>

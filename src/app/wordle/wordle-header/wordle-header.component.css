@@ -42,3 +42,7 @@
 .header-button img {
   transform: scale(0.7);
 }
+
+span {
+  color: var(--text-color);
+}

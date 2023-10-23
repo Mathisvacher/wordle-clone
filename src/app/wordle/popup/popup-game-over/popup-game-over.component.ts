@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-popup-game-over',
@@ -8,4 +8,10 @@ import { Component, Input } from '@angular/core';
 export class PopupGameOverComponent {
   @Input()
   title!: string;
+
+  @Output() closePopupEvent = new EventEmitter<void>();
+
+  closePopup() {
+    this.closePopupEvent.emit();
+  }
 }

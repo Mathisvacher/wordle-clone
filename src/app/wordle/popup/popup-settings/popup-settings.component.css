@@ -1,0 +1,16 @@
+.popup-content-keyboard-settings {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 2rem;
+}
+
+.button-container {
+  display: flex;
+  gap: 5px;
+  color: var(--text-color);
+}
+
+.selected {
+  background-color: var(--letter-ok);
+}

@@ -1,12 +1,7 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectorRef,
-  Output,
-  EventEmitter,
-} from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Letter } from 'src/app/models/letter.model';
 import { AlphabetService } from 'src/app/services/alphabet-service.service';
+import { KeyboardCommunicationService } from 'src/app/services/keyboard-communication.service';
 
 @Component({
   selector: 'app-wordle-keyboard',
@@ -26,21 +21,25 @@ export class WordleKeyboardComponent {
 
   @Output() deleteEvent = new EventEmitter<void>();
 
-  constructor(private alphabetService: AlphabetService) {}
+  constructor(
+    private alphabetService: AlphabetService,
+    private keyboardCommunicationService: KeyboardCommunicationService
+  ) {}
 
   ngOnInit() {
     this.retrieveKeyboard();
+    this.keyboardCommunicationService
+      .getChangeKeyboardEvent()
+      .subscribe((keyboardType) => {
+        this.alphabetService.changeKeyboardType(keyboardType);
+        this.retrieveKeyboard();
+      });
   }
 
   private retrieveKeyboard(): void {
     this.keyboardFirstLine = this.alphabetService.getKeyboardFirstLine();
     this.keyboardSecondLine = this.alphabetService.getKeyboardSecondLine();
     this.keyboardThirdLine = this.alphabetService.getKeyboardThirdLine();
-  }
-
-  changeKeyboardType() {
-    this.alphabetService.changeKeyboardType();
-    this.retrieveKeyboard();
   }
 
   userClickKeyboard(value: Letter) {

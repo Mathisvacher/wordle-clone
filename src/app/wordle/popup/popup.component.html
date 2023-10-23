@@ -2,5 +2,33 @@
   <app-popup-game-over
     [title]="'Statistique'"
     *ngIf="gameOver"
+    (closePopupEvent)="closePopupGameOver()"
   ></app-popup-game-over>
+
+  <app-popup-archive
+    [title]="'Archive'"
+    *ngIf="archivePopup"
+    (closePopupEvent)="closePopupArchive()"
+  >
+  </app-popup-archive>
+
+  <app-popup-help
+    [title]="'Aide'"
+    *ngIf="helpPopup"
+    (closePopupEvent)="closePopupHelp()"
+  >
+  </app-popup-help>
+
+  <app-popup-settings
+    [title]="'Paramètres'"
+    *ngIf="settingsPopup"
+    (changeKeyboardEvent)="changeKeyboardType($event)"
+    (closePopupEvent)="closePopupSettings()"
+  ></app-popup-settings>
+
+  <app-popup-stats
+    [title]="'Statistique'"
+    *ngIf="statPopup"
+    (closePopupEvent)="closePopupStat()"
+  ></app-popup-stats>
 </div>

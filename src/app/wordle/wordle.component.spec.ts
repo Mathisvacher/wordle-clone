@@ -8,7 +8,7 @@ describe('WordleComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [WordleComponent]
+      declarations: [WordleComponent],
     });
     fixture = TestBed.createComponent(WordleComponent);
     component = fixture.componentInstance;

@@ -16,6 +16,11 @@ export class WordleComponent {
   word: Letter[] = [];
   gameOver: Boolean = false;
 
+  helpPopup: Boolean = false;
+  settingsPopup: Boolean = false;
+  archivePopup: Boolean = false;
+  statPopup: Boolean = false;
+
   game!: Game;
 
   constructor(
@@ -103,5 +108,34 @@ export class WordleComponent {
   private removeLetter(): void {
     this.word.pop();
     this.gameService.updateGameRemoveLetter(this.game);
+  }
+
+  closePopup() {
+    this.gameOver = false;
+    this.archivePopup = false;
+    this.helpPopup = false;
+    this.settingsPopup = false;
+    this.statPopup = false;
+  }
+
+  openArchive() {
+    this.archivePopup = true;
+  }
+
+  openHelp() {
+    this.helpPopup = true;
+  }
+
+  openStat() {
+    this.statPopup = true;
+  }
+
+  openSettings() {
+    this.settingsPopup = true;
+  }
+
+  changeKeyboardType() {
+    console.log('toto');
+    //this.alphabetService.changeKeyboardType();
   }
 }

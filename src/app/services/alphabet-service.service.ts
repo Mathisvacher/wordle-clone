@@ -160,10 +160,12 @@ export class AlphabetService {
    * When : user want to change keyboard type
    * Then : update keyboard status
    */
-  changeKeyboardType() {
-    if (this.userKeyboardType === KEYBOARD_TYPE.AZERTY)
-      this.userKeyboardType = KEYBOARD_TYPE.QWERTY;
-    else this.userKeyboardType = KEYBOARD_TYPE.AZERTY;
+  changeKeyboardType(keyboardType: KEYBOARD_TYPE) {
+    this.userKeyboardType = keyboardType;
+  }
+
+  getUserKeyboardType(): KEYBOARD_TYPE {
+    return this.userKeyboardType;
   }
 
   /**
