@@ -11,6 +11,7 @@ export class WordService {
   }
 
   wordList: string[] = [
+    'etron',
     'table',
     'fleur',
     'plage',
