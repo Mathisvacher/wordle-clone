@@ -41,6 +41,7 @@ export class WordleComponent {
 
   private initGame(): void {
     const data = this.wordService.getOneWord();
+    this.alphabetService.resetKeyboard();
     this.wordToFind = data;
     this.game = {
       date: new Date(),
@@ -48,6 +49,7 @@ export class WordleComponent {
       wordToFine: data,
       success: false,
     };
+    this.word = [];
   }
 
   userClickVirtualKeyboard(l: Letter): void {
@@ -60,19 +62,23 @@ export class WordleComponent {
     if (this.word.length === 5) {
       if (this.letterArrayToString(this.word) === this.wordToFind) {
         this.gameService.checkWord(this.game, this.wordToFind);
+        this.game.success = true;
         this.gameOver = true;
       } else {
         this.gameService.checkWord(this.game, this.wordToFind);
         this.alphabetService.updateVirtualKeybord(this.word);
         this.gameService.goToNextWord(this.game);
         this.word = [];
+        if (this.isLastChance()) {
+          this.game.success = false;
+          this.gameOver = true;
+        }
       }
     }
   }
 
   private letterArrayToString(letterArray: Letter[]) {
     let resultString = '';
-
     for (const letter of letterArray) {
       resultString += letter.value;
     }
@@ -134,8 +140,18 @@ export class WordleComponent {
     this.settingsPopup = true;
   }
 
-  changeKeyboardType() {
-    console.log('toto');
-    //this.alphabetService.changeKeyboardType();
+  isLastChance(): boolean {
+    const size = this.game.words.length;
+    return this.game.words[size - 1][0].value !== '';
+  }
+
+  resetGame(): void {
+    this.gameService.saveGame(this.game);
+    this.initGame();
+    this.closePopup();
+  }
+
+  fetchGamesDatas(): Game[] {
+    return this.gameService.getGamesArchived();
   }
 }

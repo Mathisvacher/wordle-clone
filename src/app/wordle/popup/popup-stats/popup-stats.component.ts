@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Game } from 'src/app/models/game.model';
 
 @Component({
   selector: 'app-popup-stats',
@@ -9,7 +10,38 @@ export class PopupStatsComponent {
   @Input()
   title!: string;
 
-  @Output() closePopupEvent = new EventEmitter<void>();
+  @Input()
+  games!: Game[];
+
+  @Output()
+  closePopupEvent = new EventEmitter<void>();
+
+  nbWin!: number;
+  pourcentageWin!: number;
+  bestSerie!: number;
+  currentSerie!: number;
+
+  ngOnInit() {
+    this.bestSerie = 0;
+    this.currentSerie = 0;
+    this.nbWin = 0;
+    this.pourcentageWin = 0;
+    for (let i in this.games) {
+      if (this.games[i].success) {
+        this.nbWin += 1;
+        this.currentSerie += 1;
+      } else {
+        if (this.bestSerie < this.currentSerie) {
+          this.bestSerie = this.currentSerie;
+        }
+        this.currentSerie = 0;
+      }
+    }
+    if (this.bestSerie == 0) {
+      this.bestSerie = this.currentSerie;
+    }
+    this.pourcentageWin = this.nbWin / this.games.length;
+  }
 
   closePopup() {
     this.closePopupEvent.emit();

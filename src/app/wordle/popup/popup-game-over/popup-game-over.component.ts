@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Game } from 'src/app/models/game.model';
 
 @Component({
   selector: 'app-popup-game-over',
@@ -9,9 +10,19 @@ export class PopupGameOverComponent {
   @Input()
   title!: string;
 
-  @Output() closePopupEvent = new EventEmitter<void>();
+  @Input()
+  game!: Game;
 
-  closePopup() {
-    this.closePopupEvent.emit();
+  @Output() resetGameEvent = new EventEmitter<void>();
+
+  ngOnInit() {}
+
+  toDefinition(): void {
+    const urlExterne = 'https://1mot.net/' + this.game.wordToFine;
+    window.open(urlExterne, '_blank');
+  }
+
+  resetGame(): void {
+    this.resetGameEvent.emit();
   }
 }

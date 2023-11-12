@@ -1,7 +1,7 @@
 <div class="popup">
   <div class="popup-header">
     <h1>{{ title }}</h1>
-    <div class="pupop-header-cross" (click)="closePopup()">
+    <div class="pupop-header-cross" (click)="resetGame()">
       <svg
         class="cross"
         viewBox="0 -0.5 25 25"
@@ -24,6 +24,15 @@
     </div>
   </div>
   <div class="popup-content">
-    <span>content</span>
+    <div class="popup-stat-current-game">
+      <span *ngIf="game.success">🥳 Félicitation !</span>
+      <span *ngIf="!game.success">🤓 Dommage !</span>
+      <span> Le mot était :</span>
+      <span class="word">{{ game.wordToFine | uppercase }}</span>
+    </div>
+    <div class="button-container">
+      <div class="button button-popup" (click)="toDefinition()">Définition</div>
+      <div class="button button-popup" (click)="resetGame()">Rejouer</div>
+    </div>
   </div>
 </div>

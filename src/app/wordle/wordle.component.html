@@ -17,6 +17,8 @@
     (deleteEvent)="userClickVirtualKeyboardDelete()"
   ></app-wordle-keyboard>
   <app-popup
+    [game]="game"
+    [games]="fetchGamesDatas()"
     [gameOver]="gameOver"
     [archivePopup]="archivePopup"
     [settingsPopup]="settingsPopup"
@@ -24,5 +26,6 @@
     [statPopup]="statPopup"
     *ngIf="gameOver || archivePopup || settingsPopup || helpPopup || statPopup"
     (closePopupEvent)="closePopup()"
+    (resetGameEvent)="resetGame()"
   ></app-popup>
 </div>

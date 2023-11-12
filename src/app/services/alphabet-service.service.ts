@@ -194,4 +194,8 @@ export class AlphabetService {
       });
     }
   }
+
+  resetKeyboard() {
+    this.alphabet.forEach((letter) => (letter.status = LETTER_STATUS.NONE));
+  }
 }

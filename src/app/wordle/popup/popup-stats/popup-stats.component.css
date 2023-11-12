@@ -1,0 +1,23 @@
+.value {
+  color: var(--letter-ok-shadow);
+  font-size: 48px;
+}
+
+.popup-content-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--black-light);
+  margin: 1rem;
+  padding: 1rem;
+  width: 150px;
+  border-radius: 8px;
+}
+
+.popup-content-top {
+  display: flex;
+}
+
+.popup-content-bottom {
+  display: flex;
+}

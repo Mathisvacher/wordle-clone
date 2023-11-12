@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { KEYBOARD_TYPE } from 'src/app/enums/keyboardType.enum';
+import { Game } from 'src/app/models/game.model';
 import { KeyboardCommunicationService } from 'src/app/services/keyboard-communication.service';
 
 @Component({
@@ -23,7 +24,15 @@ export class PopupComponent {
   @Input()
   statPopup!: Boolean;
 
+  @Input()
+  game!: Game;
+
+  @Input()
+  games!: Game[];
+
   @Output() closePopupEvent = new EventEmitter<void>();
+
+  @Output() resetGameEvent = new EventEmitter<void>();
 
   constructor(
     private keyboardCommunicationService: KeyboardCommunicationService
@@ -51,5 +60,9 @@ export class PopupComponent {
 
   changeKeyboardType(keyboardType: KEYBOARD_TYPE) {
     this.keyboardCommunicationService.emitChangeKeyboardEvent(keyboardType);
+  }
+
+  resetGame(): void {
+    this.resetGameEvent.emit();
   }
 }

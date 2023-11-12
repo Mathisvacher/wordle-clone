@@ -1,1 +1,27 @@
+.popup-stat-current-game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.word {
+  font-style: bold;
+  font-size: 16;
+  color: white;
+}
+
+.button-popup {
+  width: fit-content;
+  margin-right: 1.5rem;
+  margin-left: 1.5rem;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  background-color: var(--letter-ok);
+  font-style: bold;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+}

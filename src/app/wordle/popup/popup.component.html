@@ -1,8 +1,10 @@
 <div class="popup-container">
   <app-popup-game-over
-    [title]="'Statistique'"
+    [title]="'Résumé'"
+    [game]="game"
     *ngIf="gameOver"
     (closePopupEvent)="closePopupGameOver()"
+    (resetGameEvent)="resetGame()"
   ></app-popup-game-over>
 
   <app-popup-archive
@@ -28,6 +30,7 @@
 
   <app-popup-stats
     [title]="'Statistique'"
+    [games]="games"
     *ngIf="statPopup"
     (closePopupEvent)="closePopupStat()"
   ></app-popup-stats>

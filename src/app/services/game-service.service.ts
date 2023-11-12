@@ -10,6 +10,8 @@ export class GameService {
   private emptyLetter: Letter = { value: '', status: LETTER_STATUS.NONE };
   private nextLetter: Letter = { value: '', status: LETTER_STATUS.NEXT };
 
+  private gameArchive: Game[] = [];
+
   private wordIndex: number = 0;
   private charIndex: number = 0;
   private nbWordMax: number = 6;
@@ -62,14 +64,7 @@ export class GameService {
     this.emptyLetter,
   ];
 
-  private arrayGame: Letter[][] = [
-    this.getWord1(),
-    this.getWord2(),
-    this.getWord3(),
-    this.getWord4(),
-    this.getWord5(),
-    this.getWord6(),
-  ];
+  private arrayGame!: Letter[][];
 
   //////////////////////
   // GETTER & SETTER //
@@ -95,7 +90,12 @@ export class GameService {
   }
 
   getEmptyGameArray(): Letter[][] {
+    this.initArrayGame();
     return this.arrayGame;
+  }
+
+  getGamesArchived(): Game[] {
+    return this.gameArchive;
   }
 
   /**
@@ -106,8 +106,8 @@ export class GameService {
    */
   updateGameAddLetter(game: Game, letter: Letter): void {
     if (
-      this.charIndex < this.nbCharMax - 1 ||
-      this.wordIndex < this.nbWordMax
+      this.charIndex < this.nbCharMax ||
+      this.wordIndex < this.nbWordMax - 1
     ) {
       let word: Letter[] = game.words[this.wordIndex];
       word[this.charIndex] = letter;
@@ -122,7 +122,7 @@ export class GameService {
    * Then : update index
    */
   goToNextWord(game: Game): void {
-    if (this.wordIndex < this.nbWordMax) {
+    if (this.wordIndex < this.nbWordMax - 1) {
       this.charIndex = 0;
       this.wordIndex++;
       this.addNextLetterVisual(game);
@@ -227,5 +227,75 @@ export class GameService {
       }
     }
     return count;
+  }
+
+  saveGame(game: Game) {
+    this.gameArchive.push(game);
+    this.resetParameter();
+  }
+
+  /**
+   * Reset game parameters
+   */
+  private resetParameter(): void {
+    this.wordIndex = 0;
+    this.charIndex = 0;
+    this.initArrayGame();
+  }
+
+  /**
+   * Reset array game with empty value
+   */
+  private initArrayGame() {
+    this.word1 = [
+      this.nextLetter,
+      this.emptyLetter,
+      this.emptyLetter,
+      this.emptyLetter,
+      this.emptyLetter,
+    ];
+    this.word2 = [
+      this.emptyLetter,
+      this.emptyLetter,
+      this.emptyLetter,
+      this.emptyLetter,
+      this.emptyLetter,
+    ];
+    this.word3 = [
+      this.emptyLetter,
+      this.emptyLetter,
+      this.emptyLetter,
+      this.emptyLetter,
+      this.emptyLetter,
+    ];
+    this.word4 = [
+      this.emptyLetter,
+      this.emptyLetter,
+      this.emptyLetter,
+      this.emptyLetter,
+      this.emptyLetter,
+    ];
+    this.word5 = [
+      this.emptyLetter,
+      this.emptyLetter,
+      this.emptyLetter,
+      this.emptyLetter,
+      this.emptyLetter,
+    ];
+    this.word6 = [
+      this.emptyLetter,
+      this.emptyLetter,
+      this.emptyLetter,
+      this.emptyLetter,
+      this.emptyLetter,
+    ];
+    this.arrayGame = [
+      this.getWord1(),
+      this.getWord2(),
+      this.getWord3(),
+      this.getWord4(),
+      this.getWord5(),
+      this.getWord6(),
+    ];
   }
 }
