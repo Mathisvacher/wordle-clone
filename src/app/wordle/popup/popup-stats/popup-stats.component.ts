@@ -16,10 +16,10 @@ export class PopupStatsComponent {
   @Output()
   closePopupEvent = new EventEmitter<void>();
 
-  nbWin!: number;
-  pourcentageWin!: number;
-  bestSerie!: number;
-  currentSerie!: number;
+  nbWin: number = 0;
+  pourcentageWin: number = 0;
+  bestSerie: number = 0;
+  currentSerie: number = 0;
 
   ngOnInit() {
     this.bestSerie = 0;
@@ -40,7 +40,11 @@ export class PopupStatsComponent {
     if (this.bestSerie == 0) {
       this.bestSerie = this.currentSerie;
     }
-    this.pourcentageWin = this.nbWin / this.games.length;
+    if (this.games.length != 0) {
+      this.pourcentageWin = Number(
+        ((this.nbWin * 100) / this.games.length).toFixed(0)
+      );
+    }
   }
 
   closePopup() {

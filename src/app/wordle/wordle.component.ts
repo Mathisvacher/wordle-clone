@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Letter } from '../models/letter.model';
 import { Game } from '../models/game.model';
 import { LETTER_STATUS } from '../enums/letterState.enum';
@@ -22,6 +22,8 @@ export class WordleComponent {
   statPopup: Boolean = false;
 
   game!: Game;
+
+  showWrongWord: boolean = false;
 
   constructor(
     private gameService: GameService,
@@ -61,20 +63,44 @@ export class WordleComponent {
   private checkWord() {
     if (this.word.length === 5) {
       if (this.letterArrayToString(this.word) === this.wordToFind) {
-        this.gameService.checkWord(this.game, this.wordToFind);
-        this.game.success = true;
-        this.gameOver = true;
+        this.gameWin();
       } else {
-        this.gameService.checkWord(this.game, this.wordToFind);
-        this.alphabetService.updateVirtualKeybord(this.word);
-        this.gameService.goToNextWord(this.game);
-        this.word = [];
-        if (this.isLastChance()) {
-          this.game.success = false;
-          this.gameOver = true;
+        if (this.existeWord(this.letterArrayToString(this.word))) {
+          this.updateLetterInterface();
+          if (this.isLastChance()) {
+            this.game.success = false;
+            this.gameOver = true;
+          }
+        } else {
+          this.showWrongWordMessage();
         }
       }
     }
+  }
+
+  private showWrongWordMessage() {
+    this.showWrongWord = true;
+
+    setTimeout(() => {
+      this.showWrongWord = false;
+    }, 1000);
+  }
+
+  private existeWord(word: string): boolean {
+    return this.wordService.existWord(word);
+  }
+
+  private updateLetterInterface() {
+    this.gameService.checkWord(this.game, this.wordToFind);
+    this.alphabetService.updateVirtualKeybord(this.word);
+    this.gameService.goToNextWord(this.game);
+    this.word = [];
+  }
+
+  private gameWin() {
+    this.gameService.checkWord(this.game, this.wordToFind);
+    this.game.success = true;
+    this.gameOver = true;
   }
 
   private letterArrayToString(letterArray: Letter[]) {
